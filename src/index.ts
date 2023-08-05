@@ -6,12 +6,22 @@ import friend from "../router/friendRouter"
 import chat from "../router/chatRouter"
 import chatmessage from "../router/chatMessageRouter"
 
+import http from "http"
+import {Server} from "socket.io"
 
 const url ="mongodb://0.0.0.0:27017/chat"
 
 const app:Application= express()
 
 const port:number = 3022;
+
+const server = http.createServer(app)
+const io = new Server(server,{
+  cors:{
+    origin:"*",
+    methods:["Get","Post"],
+  }
+})
 
 app.use(cors())
 app.use(express.json())
@@ -33,7 +43,9 @@ try {
 }
 })
 
-app.listen(port,()=>{
+
+
+server.listen(port,()=>{
   mongoose.connect(url).then(()=>{
     console.log("server is connected 👻🚨🚀");
     
