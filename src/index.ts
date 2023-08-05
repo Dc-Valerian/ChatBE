@@ -44,6 +44,11 @@ try {
 })
 
 
+// Connecting to socket.io
+io.on("connection",(socket)=>{
+  console.log(socket);
+  
+})
 
 server.listen(port,()=>{
   mongoose.connect(url).then(()=>{
